@@ -5,27 +5,27 @@
  *      Author: Haru
  */
 
-#include <avr/io.h>
-#include <avr/delay.h>
+#include "common.h"
+#include "Libs/Shift595.h"
 
 // PIN 13 - POMARANCZOWY
-#define LED  PB5
-#define PORT PORTB
 
-#define PIN_HIGH(pin) PORTB |= (1 << pin)
-#define PIN_LOW(pin) PORTB &= ~(1 << pin)
-#define CHECK_BIT(data, bit) ((data) & (1 << (bit)))
+volatile uint8_t val = 0x00;
 
 int main(void)
 {
-	DDRB = 0xFF;
-	PORT = 0x00;
+	_delay_ms(500);
+
+	Shift595_Init();
+	Shift595_SendByte(0x55, 0);
+	Shift595_Latch();
+
 	while(1)
 	{
-		PIN_LOW(LED);
-		_delay_ms(500);
-		PIN_HIGH(LED);
-		_delay_ms(500);
+		Shift595_SendByte(val, 0);
+		Shift595_Latch();
+		_delay_ms(50);
+		val++;
 	}
 }
 

@@ -10,6 +10,8 @@
 #define SHIFTPORT PORTB
 #define SHIFTDIR DDRB
 
+#define REGISTERS 4
+
 /*
 1 - VCC
 2 - GND

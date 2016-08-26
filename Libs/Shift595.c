@@ -43,7 +43,7 @@ void Shift595_SendData(uint8_t *data, uint8_t lenght, uint8_t Inverted)
 	uint8_t index = 0;
 	while(index < lenght )
 	{
-		Shift595_SendByte((data+index), Inverted);
+		Shift595_SendByte(*(data+index), Inverted);
 		index++;
 	}
 

@@ -21,6 +21,7 @@
 */
 
 void Shift595_Init();
+void Shift595_SendBit(uint8_t bit);
 void Shift595_SendByte(uint8_t data, uint8_t Inverted);
 void Shift595_SendData(uint8_t *data, uint8_t lenght, uint8_t Inverted);
 void Shift595_Latch();

@@ -13,6 +13,17 @@ void Shift595_Init()
 	PORTB = 0x00;
 }
 
+void Shift595_SendBit(uint8_t bit)
+{
+	if(bit)
+		PIN_HIGH(SHIFTPORT, DATA);
+	else
+		PIN_LOW(SHIFTPORT, DATA);
+
+	PIN_LOW(SHIFTPORT, CLOCK);
+	PIN_HIGH(SHIFTPORT, CLOCK);
+}
+
 
 void Shift595_SendByte(uint8_t data, uint8_t Inverted)
 {

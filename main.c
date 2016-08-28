@@ -11,22 +11,19 @@
 // FRAME	[_ROW_, GREEN, RED, BLUE]
 uint8_t frame[4] = { 0x00, 0x00, 0x00, 0xff};
 
+
+
 int main(void)
 {
-	_delay_ms(500);
+
+	DDRB = 0xFF;
+	PORTB = 0x00;
 
 	ShiftPWM_Init();
 
 	while(1)
 	{
-
+		//_delay_ms(200);
+		//PORTB ^= (1<<PB5);
 	}
 }
-
-ISR(TIMER1_COMPA_vect)
-{
-	ShiftPWM_HandleInterrupt();
-}
-
-
-

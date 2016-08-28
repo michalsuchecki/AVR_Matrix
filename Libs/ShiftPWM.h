@@ -4,10 +4,11 @@
 #include "../common.h"
 #include "Shift595.h"
 
-#define BRIGHTNESS 63
-#define LEDFREQ    70
-#define PWMFREQ	   ((F_CPU/(LEDFREQ * (BRIGHTNESS+1)))-1)
+#define BRIGHTNESS 16 // Max brightness
+#define LEDFREQ 480	// PWM Frequency (Hz)
+#define PWMFREQ	((F_CPU/(LEDFREQ * (BRIGHTNESS+1)))-1)
 
+volatile uint8_t counter;
 
 void ShiftPWM_Init();
 void ShiftPWM_HandleInterrupt();

@@ -5,7 +5,7 @@
 #include "Shift595.h"
 
 #define BRIGHTNESS 16 // Max brightness
-#define LEDFREQ 480	// PWM Frequency (Hz)
+#define LEDFREQ 75	// PWM Frequency (Hz)
 #define PWMFREQ	((F_CPU/(LEDFREQ * (BRIGHTNESS+1)))-1)
 
 volatile uint8_t counter;

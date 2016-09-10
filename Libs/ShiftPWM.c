@@ -1,8 +1,9 @@
 #include "ShiftPWM.h"
 
-uint8_t row = 0x01;
+//uint8_t row = 0x01;
 //uint8_t sample[] = {63,55,47,39,31,23,7,1};
 uint8_t sample[] = {15,13,11,9,7,5,3,1};
+uint8_t rows[] = {0x01, 0x02, 0x04,0x08, 0x10, 0x20, 0x40, 0x80};
 
 void ShiftPWM_Init()
 {
@@ -29,52 +30,55 @@ void ShiftPWM_Init()
 
 void ShiftPWM_HandleInterrupt()
 {
-	Shift595_SendByte(row, 0);
-
-	for(uint8_t idx = 0; idx < 8; idx++)
+	for(uint8_t row = 0; row < 8; row++ )
 	{
-		if(sample[idx] <= counter)
+		Shift595_SendByte(rows[row], 0);
+
+		for(uint8_t idx = 0; idx < 8; idx++)
 		{
-			Shift595_SendBit(1);
+			if(sample[idx] <= counter)
+			{
+				Shift595_SendBit(1);
+			}
+			else
+			{
+				Shift595_SendBit(0);
+			}
 		}
-		else
+
+		for(uint8_t idx = 0; idx < 8; idx++)
 		{
-			Shift595_SendBit(0);
+			if(sample[idx] <= counter)
+			{
+				Shift595_SendBit(1);
+			}
+			else
+			{
+				Shift595_SendBit(0);
+			}
 		}
+
+		for(uint8_t idx = 0; idx < 8; idx++)
+		{
+			if(sample[idx] <= counter)
+			{
+				Shift595_SendBit(1);
+			}
+			else
+			{
+				Shift595_SendBit(0);
+			}
+		}
+
+		Shift595_Latch();
 	}
 
-	for(uint8_t idx = 0; idx < 8; idx++)
-	{
-		if(sample[idx] <= counter)
-		{
-			Shift595_SendBit(1);
-		}
-		else
-		{
-			Shift595_SendBit(0);
-		}
-	}
-
-	for(uint8_t idx = 0; idx < 8; idx++)
-	{
-		if(sample[idx] <= counter)
-		{
-			Shift595_SendBit(1);
-		}
-		else
-		{
-			Shift595_SendBit(0);
-		}
-	}
-
-	//Shift595_SendByte(0x00,1);
-	//Shift595_SendByte(0x00,1);
-
+	//Clear
+	Shift595_SendByte(0x00, 0);
+	Shift595_SendByte(0xFF, 0);
+	Shift595_SendByte(0xFF, 0);
+	Shift595_SendByte(0xFF, 0);
 	Shift595_Latch();
-
-	row *= 2;
-	if(row == 0)
-		row = 0x01;
 
 	if(counter++ >= BRIGHTNESS)
 	{

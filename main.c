@@ -23,7 +23,8 @@ int main(void)
 
 	while(1)
 	{
-		//_delay_ms(200);
-		//PORTB ^= (1<<PB5);
+		// still working ?
+		_delay_ms(200);
+		PORTB ^= (1<<PB5);
 	}
 }

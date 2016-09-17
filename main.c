@@ -8,11 +8,6 @@
 #include "common.h"
 #include "Libs/ShiftPWM.h"
 
-// FRAME	[_ROW_, GREEN, RED, BLUE]
-uint8_t frame[4] = { 0x00, 0x00, 0x00, 0xff};
-
-
-
 int main(void)
 {
 
@@ -20,6 +15,12 @@ int main(void)
 	PORTB = 0x00;
 
 	ShiftPWM_Init();
+
+	uint8_t step = 256/64;
+	for(uint8_t i = 0; i < 64; i++)
+	{
+		HSVtoRGB(&LEDBuffer[i],step*i,255,255);
+	}
 
 	while(1)
 	{

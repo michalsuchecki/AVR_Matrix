@@ -15,5 +15,6 @@ volatile uint8_t counter;
 
 void ShiftPWM_Init();
 void ShiftPWM_HandleInterrupt();
+void ShiftPWM_ClearAll();
 
 #endif

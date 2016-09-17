@@ -1,10 +1,3 @@
-/*
- * main.c
- *
- *  Created on: 22 sie 2016
- *      Author: Haru
- */
-
 #include "common.h"
 #include "Libs/ShiftPWM.h"
 
@@ -17,15 +10,22 @@ int main(void)
 	ShiftPWM_Init();
 
 	uint8_t step = 256/64;
-	for(uint8_t i = 0; i < 64; i++)
-	{
-		HSVtoRGB(&LEDBuffer[i],step*i,255,255);
-	}
+	uint8_t offset = 0;
 
 	while(1)
 	{
 		// still working ?
-		_delay_ms(200);
-		PORTB ^= (1<<PB5);
+		//_delay_ms(200);
+		//PORTB ^= (1<<PB5);
+
+		for(uint8_t i = 0; i < 64; i++)
+		{
+			HSVtoRGB(&LEDBuffer[i],offset + step*i,255,255);
+			//_delay_ms();
+
+		}
+		offset+=4;
+		_delay_ms(10);
+		//ShiftPWM_ClearAll();
 	}
 }

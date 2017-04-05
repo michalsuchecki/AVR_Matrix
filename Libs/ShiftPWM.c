@@ -22,14 +22,38 @@ void ShiftPWM_Init()
 	sei();
 }
 
+void ShiftPWM_SetColor(Color *c)
+{
+	for(uint8_t i = 0; i< 64; i++)
+	{
+		LEDBuffer[i] = *c;
+	}
+}
+
+void ShiftPWM_SetAll(uint8_t value)
+{
+	Color c;
+	c.r = value;
+	c.g = value;
+	c.b = value;
+
+	for(uint8_t i = 0; i< 64; i++)
+	{
+		LEDBuffer[i] = c;
+	}
+}
+
 void ShiftPWM_ClearAll()
 {
+	ShiftPWM_SetAll(0x00);
+	/*
 	for(uint8_t i; i< 64; i++)
 	{
 		LEDBuffer[i].r = 0;
 		LEDBuffer[i].g = 0;
 		LEDBuffer[i].b = 0;
 	}
+	*/
 }
 
 void ShiftPWM_HandleInterrupt()

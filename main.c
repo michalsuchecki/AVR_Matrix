@@ -18,14 +18,30 @@ int main(void)
 		//_delay_ms(200);
 		//PORTB ^= (1<<PB5);
 
+		/*
+		Color c;
+
+		for(uint8_t i = 0; i < 255; i++)
+		{
+			HSVtoRGB(&c,i,255,255);
+			ShiftPWM_SetColor(&c);
+			_delay_ms(10);
+
+		}
+
+
+		_delay_ms(1000);
+		*/
+
 		for(uint8_t i = 0; i < 64; i++)
 		{
 			HSVtoRGB(&LEDBuffer[i],offset + step*i,255,255);
 			//_delay_ms();
 
 		}
-		offset+=4;
-		_delay_ms(10);
+		offset+=2;
+		_delay_ms(1);
 		//ShiftPWM_ClearAll();
+
 	}
 }
